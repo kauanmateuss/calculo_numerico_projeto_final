@@ -54,6 +54,37 @@ class TestMetodosDiretos(unittest.TestCase):
 
         self.assertEqual(resolver_lu(matriz), [1.0, 2.0])
 
+    def test_sistema_generico_com_solucao_negativa(self):
+        # Sistema diferente do problema base, com solucao (2, -1, 3)
+        matriz = [
+            [1.0, 1.0, 1.0, 4.0],
+            [2.0, -1.0, 1.0, 8.0],
+            [1.0, 2.0, 3.0, 9.0],
+        ]
+
+        for metodo in (resolver_gauss, resolver_jordan, resolver_lu):
+            solucao = metodo(matriz)
+
+            self.assertAlmostEqual(solucao[0], 2.0, places=6)
+            self.assertAlmostEqual(solucao[1], -1.0, places=6)
+            self.assertAlmostEqual(solucao[2], 3.0, places=6)
+
+    def test_sistema_generico_4x4(self):
+        # Sistema 4x4 com solucao (1, 2, 3, 4)
+        matriz = [
+            [1.0, 1.0, 1.0, 1.0, 10.0],
+            [0.0, 1.0, 1.0, 1.0, 9.0],
+            [0.0, 0.0, 1.0, 1.0, 7.0],
+            [0.0, 0.0, 0.0, 1.0, 4.0],
+        ]
+        esperado = [1.0, 2.0, 3.0, 4.0]
+
+        for metodo in (resolver_gauss, resolver_jordan, resolver_lu):
+            solucao = metodo(matriz)
+
+            for obtido, valor_esperado in zip(solucao, esperado):
+                self.assertAlmostEqual(obtido, valor_esperado, places=6)
+
     def test_sistema_singular(self):
         matriz = [
             [1.0, 2.0, 3.0],
