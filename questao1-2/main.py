@@ -1,5 +1,6 @@
 from eliminacao_gauss import resolver_gauss
 from eliminacao_jordan import resolver_jordan
+from erro_residual import exibir_erro_residual
 from fatoracao_lu import resolver_lu
 
 METODOS = {
@@ -100,6 +101,7 @@ def executar_metodo(nome, funcao, matriz, mostrar_passos):
         return None
 
     exibir_solucao(solucao)
+    exibir_erro_residual(matriz, solucao)
     return solucao
 
 
