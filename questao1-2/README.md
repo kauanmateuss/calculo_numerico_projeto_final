@@ -55,6 +55,30 @@ python3 main.py
 O menu permite usar os dados do problema ou digitar qualquer sistema. Para o
 problema dos componentes, basta escolher a opção `1`.
 
+### Resolvendo um sistema diferente
+
+Escolha a opção `2`, informe o número de equações e digite uma linha por
+equação, com os coeficientes e o termo independente separados por espaço.
+Exemplo para o sistema:
+
+```
+ x1 +  x2 +  x3 = 4
+2*x1 -  x2 +  x3 = 8
+ x1 + 2*x2 + 3*x3 = 9
+```
+
+Entrada correspondente:
+
+```
+3
+1 1 1 4
+2 -1 1 8
+1 2 3 9
+```
+
+A solução obtida é `x1 = 2`, `x2 = -1` e `x3 = 3`. Também é possível usar
+vírgula como separador decimal (`0,5`) e o programa aceita qualquer ordem `n`.
+
 ### Testes
 
 ```bash
