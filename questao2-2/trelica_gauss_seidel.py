@@ -1,18 +1,3 @@
-"""
-UNIVERSIDADE FEDERAL DO VALE DO SÃO FRANCISCO (UNIVASF)
-DISCIPLINA: CÁLCULO NUMÉRICO - 2025.2
-PROJETO FINAL - TÓPICO 02: SISTEMAS LINEARES (MÉTODOS ITERATIVOS)
-QUESTÃO 02: ANÁLISE DE UMA TRELIÇA ISOSTÁTICA VIA MÉTODO DE GAUSS-SEIDEL
-
-Autores: Equipe de Cálculo Numérico
-Descrição:
-    Este programa modela o equilíbrio estático de uma treliça plana com 5 nós
-    e 7 barras sob carregamento vertical externo e calcula os esforços axiais
-    nas barras e reações de apoio através do Método Iterativo de Gauss-Seidel.
-    Permite tanto a resolução com os dados padrão do enunciado quanto a entrada
-    de novas cargas externas ou até mesmo de um sistema linear arbitrário n x n.
-"""
-
 import math
 import sys
 from typing import List, Tuple, Optional
@@ -345,9 +330,6 @@ def menu_principal() -> None:
     """Loop do menu principal com opções interativas."""
     while True:
         print("\n" + "=" * 65)
-        print("   UNIVASF - CÁLCULO NUMÉRICO - PROJETO FINAL (TÓPICO 02 - Q2)")
-        print("          MÉTODO DE GAUSS-SEIDEL EM TRELIÇA ISOSTÁTICA")
-        print("=" * 65)
         print("1. Resolver o Problema Padrão da Treliça (Cargas 500 e 100, tol = 0.0001)")
         print("2. Resolver a Treliça com Novos Carregamentos Externos")
         print("3. Resolver um Sistema Linear Genérico n x n (Gauss-Seidel)")
@@ -384,7 +366,7 @@ def menu_principal() -> None:
             exibir_matriz(A, b, nomes)
 
         elif opcao == "5":
-            print("\nEncerrando o programa. Bom trabalho e excelente apresentação na UNIVASF!\n")
+            print("\nEncerrando o programa.\n")
             sys.exit(0)
 
         else:
