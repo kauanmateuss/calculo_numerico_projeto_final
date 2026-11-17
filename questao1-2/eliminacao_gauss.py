@@ -14,14 +14,16 @@ def resolver_gauss(matriz, mostrar_passos=False):
         print("\n--- Eliminacao de Gauss ---")
         exibir_matriz(A, "Matriz aumentada inicial [A|b]:")
 
-    # 1. Eliminacao (com pivoteamento parcial)
+    # Eliminacao (com pivoteamento parcial)
     for k in range(n):
-        linha_pivo = k
+        linha_pivo = k  # indice da linha com o maior pivo na coluna k
 
+        # Encontrar o maior pivo na coluna k
         for i in range(k + 1, n):
             if abs(A[i][k]) > abs(A[linha_pivo][k]):
                 linha_pivo = i
 
+        # Verificar se o pivo é nulo
         if abs(A[linha_pivo][k]) < TOLERANCIA:
             raise ValueError("O sistema nao possui solucao unica (pivo nulo).")
 
@@ -31,6 +33,7 @@ def resolver_gauss(matriz, mostrar_passos=False):
                 f"{formatar_valor(A[linha_pivo][k])}"
             )
 
+        # Trocar a linha do pivo com a linha atual, se necessario
         if linha_pivo != k:
             A[k], A[linha_pivo] = A[linha_pivo], A[k]
 
@@ -54,7 +57,7 @@ def resolver_gauss(matriz, mostrar_passos=False):
         if mostrar_passos:
             exibir_matriz(A)
 
-    # 2. Retrossubstituicao
+    # Retrossubstituicao
     x = [0.0] * n
 
     if mostrar_passos:
