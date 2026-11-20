@@ -1,9 +1,3 @@
-"""
-Aplicação Principal - Integração Numérica (Seção Reta de Rios/Lagos)
-Disciplina: Cálculo Numérico - UNIVASF
-Tópico 04 - Questão 01
-"""
-
 import sys
 from typing import List, Tuple
 from integracao_numerica import (
@@ -14,7 +8,7 @@ from integracao_numerica import (
 from grafico import plotar_perfil_rio
 
 
-# Dados originais do problema da Questão 1 do Tópico 04
+# Dados do problema
 DADOS_ORIGINAIS_X = [0.0, 2.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0, 18.0, 20.0]
 DADOS_ORIGINAIS_Y = [0.0, 1.8, 2.0, 4.0, 4.0, 6.0, 4.0, 3.6, 3.4, 2.8, 0.0]
 H_ORIGINAL = 2.0
@@ -41,7 +35,6 @@ def resolver_e_exibir(x: List[float], y: List[float], gerar_grafico: bool = True
     
     exibir_tabela_pontos(x, y)
     
-    # --- 1. REGRA DOS TRAPÉZIOS REPETIDA ---
     print("=" * 75)
     print("  1. MÉTODO: REGRA DOS TRAPÉZIOS REPETIDA (COMPOSTA)")
     print("=" * 75)
@@ -64,7 +57,6 @@ def resolver_e_exibir(x: List[float], y: List[float], gerar_grafico: bool = True
     print(f"  • I_Trap = ({h:.2f} / 2) * {termo_soma:.2f} = {area_trap:.4f} m²")
     print(f"\n>>> ÁREA CALCULADA (TRAPÉZIOS): {area_trap:.4f} m² <<<\n")
     
-    # --- 2. REGRA DE SIMPSON REPETIDA ---
     print("=" * 75)
     print("  2. MÉTODO: REGRA DE SIMPSON REPETIDA (COMPOSTA)")
     print("=" * 75)
@@ -105,7 +97,6 @@ def resolver_e_exibir(x: List[float], y: List[float], gerar_grafico: bool = True
         print(f"Detalhes: {res_misto.get('detalhes', '')}")
         print(f"\n>>> ÁREA CALCULADA (SIMPSON MISTO): {area_simp:.4f} m² <<<\n")
     
-    # --- 3. QUADRO COMPARATIVO E ANÁLISE ---
     print("=" * 75)
     print("  3. QUADRO COMPARATIVO E DISCUSSÃO DE RESULTADOS")
     print("=" * 75)
@@ -131,9 +122,6 @@ def resolver_e_exibir(x: List[float], y: List[float], gerar_grafico: bool = True
 
 
 def coletar_novos_dados() -> Tuple[List[float], List[float]]:
-    """
-    Coleta dados personalizados fornecidos pelo usuário no terminal.
-    """
     print("\n" + "=" * 60)
     print("      ENTRADA DE NOVOS DADOS PARA OUTRO RIO / SEÇÃO")
     print("=" * 60)
@@ -156,7 +144,6 @@ def coletar_novos_dados() -> Tuple[List[float], List[float]]:
             print("Exemplo: 0 1.8 2 4 4 6 4 3.6 3.4 2.8 0")
             linha = input("Profundidades: ").strip()
             
-            # Tratar separadores (espaço ou vírgula)
             tokens = linha.replace(",", " ").split()
             y = [float(val) for val in tokens]
             
@@ -201,7 +188,6 @@ def menu_principal():
         else:
             print("\nOpção inválida! Escolha 1, 2, 3 ou 4.\n")
             
-        # Pergunta de continuidade (conforme item 4 das instruções da atividade)
         print("\n" + "." * 75)
         continuar = input("Deseja realizar novos cálculos ou retornar ao menu? (S/n): ").strip().lower()
         if continuar in ["n", "nao", "não"]:

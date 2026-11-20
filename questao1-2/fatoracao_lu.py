@@ -2,12 +2,6 @@ from exibicao import TOLERANCIA, exibir_matriz, formatar_valor
 
 
 def fatorar_lu(matriz, mostrar_passos=False):
-    """Fatora a matriz dos coeficientes em L * U, com pivoteamento parcial.
-
-    A matriz deve estar na forma aumentada [A | b].
-    Retorna um dicionario com L, U, o vetor b ja permutado, o vetor de
-    permutacao e a ordem do sistema.
-    """
     n = len(matriz)
     U = [linha[:n] for linha in matriz]
     b = [linha[n] for linha in matriz]
@@ -21,7 +15,7 @@ def fatorar_lu(matriz, mostrar_passos=False):
         print("\n--- Fatoracao LU ---")
         exibir_matriz([linha[:] for linha in matriz], "Matriz aumentada inicial [A|b]:")
 
-    # 1. Fatoracao: transforma A em U e guarda os multiplicadores em L
+    # Fatoracao
     for k in range(n):
         linha_pivo = k
 
@@ -40,7 +34,7 @@ def fatorar_lu(matriz, mostrar_passos=False):
                 permutacao[k],
             )
 
-            # Os multiplicadores ja calculados acompanham a troca de linhas
+            # A troca de linhas tambem troca os multiplicadores ja calculados
             for j in range(k):
                 L[k][j], L[linha_pivo][j] = L[linha_pivo][j], L[k][j]
 
@@ -78,12 +72,6 @@ def fatorar_lu(matriz, mostrar_passos=False):
 
 
 def resolver_lu(matriz, mostrar_passos=False):
-    """Resolve um sistema linear pela fatoracao LU com pivoteamento parcial.
-
-    A matriz deve estar na forma aumentada [A | b].
-    O sistema A*x = b e reescrito como L*U*x = P*b, resolvido em duas
-    etapas: substituicao direta (L*y = P*b) e retrossubstituicao (U*x = y).
-    """
     fatoracao = fatorar_lu(matriz, mostrar_passos)
 
     L = fatoracao["L"]
@@ -91,7 +79,6 @@ def resolver_lu(matriz, mostrar_passos=False):
     b = fatoracao["b"]
     n = fatoracao["n"]
 
-    # 2. Substituicao direta: L * y = P * b
     y = [0.0] * n
 
     if mostrar_passos:
@@ -108,7 +95,6 @@ def resolver_lu(matriz, mostrar_passos=False):
         if mostrar_passos:
             print(f"  y{i + 1} = {formatar_valor(y[i])}")
 
-    # 3. Retrossubstituicao: U * x = y
     x = [0.0] * n
 
     if mostrar_passos:

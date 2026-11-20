@@ -2,7 +2,6 @@ TOLERANCIA = 1e-12
 
 
 def formatar_valor(valor):
-    """Formata um numero para exibicao, evitando ruido numerico."""
     if abs(valor) < 1e-10:
         valor = 0.0
 
@@ -15,7 +14,6 @@ def formatar_valor(valor):
 
 
 def exibir_matriz(matriz, titulo=None):
-    """Exibe uma matriz (quadrada ou aumentada) de forma alinhada."""
     if titulo:
         print(titulo)
 

@@ -4,7 +4,6 @@ from typing import List, Tuple, Optional
 
 
 def deg2rad(deg: float) -> float:
-    """Converte graus para radianos."""
     return deg * math.pi / 180.0
 
 
@@ -16,27 +15,13 @@ def resolver_gauss_seidel(
     max_iter: int = 1000,
     verbose: bool = True,
 ) -> Tuple[List[float], int, List[float], bool]:
-    """
-    Executa o Método Iterativo de Gauss-Seidel para resolver Ax = b.
-
-    Parâmetros:
-        A: Matriz dos coeficientes (n x n).
-        b: Vetor de termos independentes (tamanho n).
-        x0: Estimativa inicial (padrão: zeros).
-        tol: Tolerância para critério de parada (precisão).
-        max_iter: Número máximo de iterações permitidas.
-        verbose: Se True, imprime tabela com o progresso de cada iteração.
-
-    Retorna:
-        Tuple contendo: (solução x, total de iterações, histórico de erros, convergiu)
-    """
     n = len(A)
     if x0 is None:
         x = [0.0] * n
     else:
         x = list(x0)
 
-    # Verificação de segurança: diagonais nulas geram divisão por zero
+    # Evita divisao por zero na diagonal
     for i in range(n):
         if abs(A[i][i]) < 1e-12:
             raise ZeroDivisionError(
@@ -78,7 +63,7 @@ def resolver_gauss_seidel(
             if it <= 5 or it % 10 == 0 or max_diff < tol:
                 print(f"{it:^10d} | {max_diff:^25.6f} | {'Em cálculo...':^20}")
 
-        # Critério de parada: erro absoluto máximo entre passos consecutivos
+        # Critério de parada
         if max_diff < tol:
             convergiu = True
             if verbose:
@@ -98,26 +83,6 @@ def resolver_gauss_seidel(
 def montar_sistema_trelica(
     P2: float = 500.0, P4: float = 100.0
 ) -> Tuple[List[List[float]], List[float], List[str]]:
-    """
-    Monta a matriz esparsa A e o vetor b para a treliça de 5 nós e 7 barras.
-    
-    A treliça possui:
-        - 7 barras: F1, F2, F3, F4, F5, F6, F7
-        - 3 reações: H1 (horizontal no nó 1), V1 (vertical no nó 1), V5 (vertical no nó 5)
-    
-    Geometria / Ângulos com a horizontal:
-        - Barra 1 (Nó 1 -> Nó 2): 45°
-        - Barra 2 (Nó 1 -> Nó 3): horizontal (0°)
-        - Barra 3 (Nó 2 -> Nó 3): 45°
-        - Barra 4 (Nó 2 -> Nó 4): horizontal (0°)
-        - Barra 5 (Nó 3 -> Nó 4): 60°
-        - Barra 6 (Nó 3 -> Nó 5): horizontal (0°)
-        - Barra 7 (Nó 4 -> Nó 5): 30°
-    
-    Cargas verticais descendentes aplicadas:
-        - Nó 2: P2 (padrão 500 N)
-        - Nó 4: P4 (padrão 100 N)
-    """
     c45 = math.cos(deg2rad(45))
     s45 = math.sin(deg2rad(45))
     c60 = math.cos(deg2rad(60))
@@ -125,9 +90,7 @@ def montar_sistema_trelica(
     c30 = math.cos(deg2rad(30))
     s30 = math.sin(deg2rad(30))
 
-    # Matriz 10x10 nas equações naturais dos nós:
-    # Incógnitas x = [F1, F2, F3, F4, F5, F6, F7, H1, V1, V5]
-    # Índices:        0   1   2   3   4   5   6   7   8   9
+    # Incognitas: [F1, F2, F3, F4, F5, F6, F7, H1, V1, V5]
     A_raw = [[0.0] * 10 for _ in range(10)]
     b_raw = [0.0] * 10
 
@@ -191,8 +154,7 @@ def montar_sistema_trelica(
     A_raw[9][9] = 1.0
     b_raw[9] = 0.0
 
-    # Reordenação estratégica para garantir elementos não-nulos na diagonal
-    # e assegurar convergência (raio espectral rho(T_GS) ≈ 0.9108 < 1):
+    # Reordenação para evitar zeros na diagonal e melhorar a convergência
     ordem_linhas = [3, 4, 5, 2, 7, 8, 6, 0, 1, 9]
 
     A_ord = [A_raw[idx] for idx in ordem_linhas]
@@ -204,7 +166,6 @@ def montar_sistema_trelica(
 
 
 def exibir_matriz(A: List[List[float]], b: List[float], nomes_vars: List[str]) -> None:
-    """Exibe o sistema linear matricial de forma legível no terminal."""
     n = len(A)
     print("\n--- SISTEMA LINEAR REORDENADO PARA GAUSS-SEIDEL [A]{x} = {b} ---")
     cabecalho = " | ".join(f"{v:>7}" for v in nomes_vars)
@@ -219,7 +180,6 @@ def exibir_matriz(A: List[List[float]], b: List[float], nomes_vars: List[str]) -
 def apresentar_resultados_trelica(
     x: List[float], nomes_vars: List[str], P2: float, P4: float
 ) -> None:
-    """Apresenta os esforços axiais nas barras e reações com interpretação estrutural."""
     print("\n" + "=" * 65)
     print("      RESULTADOS FINAIS - ANÁLISE ESTRUTURAL DA TRELIÇA")
     print("=" * 65)
@@ -274,7 +234,6 @@ def apresentar_resultados_trelica(
 
 
 def resolver_sistema_generico() -> None:
-    """Permite ao usuário inserir um sistema de equações lineares n x n genérico."""
     print("\n--- RESOLUÇÃO DE SISTEMA LINEAR GENÉRICO N x N ---")
     try:
         n = int(input("Informe o número de equações/incógnitas (n): "))
@@ -327,7 +286,6 @@ def resolver_sistema_generico() -> None:
 
 
 def menu_principal() -> None:
-    """Loop do menu principal com opções interativas."""
     while True:
         print("\n" + "=" * 65)
         print("1. Resolver o Problema Padrão da Treliça (Cargas 500 e 100, tol = 0.0001)")

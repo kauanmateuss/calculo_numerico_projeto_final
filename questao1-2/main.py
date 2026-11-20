@@ -11,10 +11,6 @@ METODOS = {
 
 
 def dados_problema():
-    """Sistema dos componentes eletricos (materiais em gramas).
-
-    x1, x2 e x3 sao as quantidades diarias dos componentes 1, 2 e 3.
-    """
     return [
         [15.0, 17.0, 19.0, 3890.0],  # metal
         [0.30, 0.40, 0.55, 95.0],    # plastico

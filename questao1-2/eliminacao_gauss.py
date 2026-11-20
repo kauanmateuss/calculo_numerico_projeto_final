@@ -2,11 +2,6 @@ from exibicao import TOLERANCIA, exibir_matriz, formatar_valor
 
 
 def resolver_gauss(matriz, mostrar_passos=False):
-    """Resolve um sistema linear pelo metodo da eliminacao de Gauss.
-
-    A matriz deve estar na forma aumentada [A | b].
-    O parametro mostrar_passos imprime as operacoes realizadas.
-    """
     n = len(matriz)
     A = [linha[:] for linha in matriz]
 
@@ -14,16 +9,14 @@ def resolver_gauss(matriz, mostrar_passos=False):
         print("\n--- Eliminacao de Gauss ---")
         exibir_matriz(A, "Matriz aumentada inicial [A|b]:")
 
-    # Eliminacao (com pivoteamento parcial)
+    # Pivoteamento parcial
     for k in range(n):
-        linha_pivo = k  # indice da linha com o maior pivo na coluna k
+        linha_pivo = k
 
-        # Encontrar o maior pivo na coluna k
         for i in range(k + 1, n):
             if abs(A[i][k]) > abs(A[linha_pivo][k]):
                 linha_pivo = i
 
-        # Verificar se o pivo é nulo
         if abs(A[linha_pivo][k]) < TOLERANCIA:
             raise ValueError("O sistema nao possui solucao unica (pivo nulo).")
 
@@ -33,7 +26,6 @@ def resolver_gauss(matriz, mostrar_passos=False):
                 f"{formatar_valor(A[linha_pivo][k])}"
             )
 
-        # Trocar a linha do pivo com a linha atual, se necessario
         if linha_pivo != k:
             A[k], A[linha_pivo] = A[linha_pivo], A[k]
 

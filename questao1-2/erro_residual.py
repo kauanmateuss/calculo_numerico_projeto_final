@@ -4,11 +4,6 @@ TOLERANCIA_RELATIVA = 1e-9
 
 
 def calcular_erro_residual(matriz, solucao):
-    """Calcula o erro residual de uma solucao para o sistema [A|b].
-
-    O residuo de cada equacao e r_i = b_i - (A*x)_i.
-    Quanto mais proximo de zero, melhor a solucao satisfaz o sistema.
-    """
     n = len(matriz)
     residuos = []
 
@@ -39,7 +34,6 @@ def calcular_erro_residual(matriz, solucao):
 
 
 def exibir_erro_residual(matriz, solucao):
-    """Mostra o residuo de cada equacao e as normas do vetor residual."""
     resultado = calcular_erro_residual(matriz, solucao)
 
     print("\nErro residual (r = b - A*x):")
@@ -60,7 +54,6 @@ def exibir_erro_residual(matriz, solucao):
 
 
 if __name__ == "__main__":
-    # Exemplo de verificacao direta da solucao do problema
     matriz = [
         [15.0, 17.0, 19.0, 3890.0],
         [0.30, 0.40, 0.55, 95.0],
